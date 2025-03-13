@@ -119,4 +119,6 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 ---
 
 ## 📄 License
-[Include your license information here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project was developed as part of a course at Halmstad University and is shared openly for educational purposes and public use.
