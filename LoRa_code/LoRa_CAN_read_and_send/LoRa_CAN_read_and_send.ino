@@ -43,45 +43,23 @@ float MPPT2_watt;
 float MPPT3_watt;
 float MPPT_total_watt;
 
-// Storing current and voltage to calculate power consumption
-#define MAX_SAMPLES 1000
-float battery_current_array[MAX_SAMPLES];
-float battery_voltage_array[MAX_SAMPLES];
-int sample_count = 0;
-
-int left_blinker;
-int right_blinker;
-int hazard_light;
-int brake_light;
-int horn;
-
 CanFrame msg;
 
 int SDcardFlag = 1;
 
-int count = 0;
-unsigned long previousMillisLEDs = 0;
-const int blinkInterval = 500;
-bool ledState = LOW;
-
-
 // Variables to change when collecting data
-
-// Save power data
-unsigned long previousMillis = 0;
-const unsigned long saveInterval = 100;
 
 // How many messages we want to send
 #define MAX_NR_MSG 50
 int counter = 0;
 
-// Transmitting frequency (test 0.1, 0.2, 0.5, 1.0 )
+// Minimum transmitting frequency
 float sendInterval = 0.1;
 
-// Spreading factor (test 6, 8, 10, 12)
+// Spreading factor (6, 7, 8, 9, 10, 11, 12)
 int sf = 7;
 
-// Signal bandwidth (test 20.8e3, 62.5e3, and 250e3)
+// Signal bandwidth (10.4e3, 15.6e3, 20.8e3, 31.25e3, 41.7e3, 62.5e3, 125e3, 250e3)
 long sbw = 62500;
 
 void assignCAN2variable() {
@@ -176,21 +154,6 @@ void assignCAN2variable() {
 
 void prepareAndWrite2SD() {
   char buffer[512];
-  /* snprintf(buffer, sizeof(buffer),
-            "Velocity: %.2f km/h, Distance Travelled: %.2f km, "
-            "Battery Voltage: %.2f V, Battery Current: %.2f A, "
-            "Cell Low Volt: %.2f V, Cell High Volt: %.2f V, Cell Avg Volt: %.2f V, "
-            "Cell Low Temp: %.2f C, Cell High Temp: %.2f C, Cell Avg Temp: %.2f C, "
-            "High Temp Cell ID: %.2f, Low Temp Cell ID: %.2f, BMS Temp: %.2f C, "
-            "Motor Current: %.2f A, Motor Temp: %.2f C, Motor Controller Temp: %.2f C, "
-            "MPPT1 Watt: %.2f W, MPPT2 Watt: %.2f W, MPPT3 Watt: %.2f W, Total MPPT Watt: %.2f W\n",
-            velocity, distance_travelled, 
-            battery_volt, battery_current, 
-            battery_cell_LOW_volt, battery_cell_HIGH_volt, battery_cell_AVG_volt,
-            battery_cell_LOW_temp, battery_cell_HIGH_temp, battery_cell_AVG_temp,
-            battery_cell_ID_HIGH_temp, battery_cell_ID_LOW_temp, BMS_temp,
-            motor_current, motor_temp, motor_controller_temp,
-            MPPT1_watt, MPPT2_watt, MPPT3_watt, MPPT_total_watt); */
   snprintf(buffer, sizeof(buffer),
             "%.2f %.2f "
             "%.2f %.2f "
@@ -206,14 +169,6 @@ void prepareAndWrite2SD() {
             battery_cell_ID_HIGH_temp, battery_cell_ID_LOW_temp, BMS_temp,
             motor_current, motor_temp, motor_controller_temp,
             MPPT1_watt, MPPT2_watt, MPPT3_watt, MPPT_total_watt);
-  write2SDcard(buffer, SDcardFlag);
-}
-
-void writePower2SDcard() {
-  char buffer[256];
-  snprintf(buffer, sizeof(buffer),
-            "%.4f %.4f %.4f \n",
-            battery_current, battery_volt, battery_current*battery_volt);
   write2SDcard(buffer, SDcardFlag);
 }
 
@@ -287,14 +242,6 @@ void blinkLEDs() {
   }
 }
 
-float calculatePowerConsumption() {
-  float total_power = 0.0;
-  for (int i = 0; i < sample_count; i++) {
-    total_power += battery_current_array[i] * battery_voltage_array[i];
-  }
-  return total_power / sample_count;  // Return average power consumption
-}
-
 void updateVariable(String input) {
     input.trim();
     
@@ -338,14 +285,11 @@ void setup() {
   LoRa.setPins(ss, rst, dio0);
 
   // Set pins
-	ESP32Can.setPins(CAN_TX, CAN_RX);
+  ESP32Can.setPins(CAN_TX, CAN_RX);
 	
   // You can set custom size for the queues - these are default
   ESP32Can.setRxQueueSize(10);
-	ESP32Can.setTxQueueSize(10);
-
-  // .setSpeed() and .begin() functions require to use TwaiSpeed enum,
-  // but you can easily convert it from numerical value using .convertSpeed()
+  ESP32Can.setTxQueueSize(10);
   ESP32Can.setSpeed(ESP32Can.convertSpeed(500));
 
   if(ESP32Can.begin()) {
@@ -378,14 +322,6 @@ void setup() {
   // ranges from 0-0xFF
   LoRa.setSyncWord(0xF3);
   Serial.println("LoRa Initializing OK!");
-
-  // Blinkers setup
-  /* pinMode(12, OUTPUT);
-  digitalWrite(12, LOW);
-  pinMode(26, OUTPUT);
-  digitalWrite(26, LOW);
-  pinMode(25, OUTPUT);
-  digitalWrite(25, LOW); */
 }
 
 void loop() {
@@ -404,23 +340,10 @@ void loop() {
     // Assign CAN data to specified variable based on identifier
     assignCAN2variable();
 
-    //Blink LEDs
-    //blinkLEDs();
-
     clock_t currentTime = clock();
     double timeElapsed = ((double)(currentTime - lastSendTime))/CLOCKS_PER_SEC;
 
     if (timeElapsed >= sendInterval) {
-
-      /* //Print information form driver
-      if(driver_current > 0.0 || driverRPM > 0.0) {
-        Serial.printf("Driver current: %.2f, Driver RPM: %.2f", driver_current, driverRPM);
-        Serial.println();
-      }
-      if(left_blinker > 0 || right_blinker > 0 || hazard_light > 0 || brake_light > 0) {
-        Serial.printf("left: %d, right %d, hazard: %d, brake: %d", left_blinker, right_blinker, hazard_light, brake_light);
-        Serial.println();
-      } */
 
       // Prepare const char of our variables and save to SD card
       prepareAndWrite2SD();
@@ -432,10 +355,6 @@ void loop() {
       Serial.print(counter);
       Serial.println(" CAN sent with LoRa");
       lastSendTime = currentTime;
-      
-      // Calculate and print power consumption
-      //float power_consumption = calculatePowerConsumption();
-      //Serial.printf("Average Power Consumption: %.2f W\n", power_consumption);
 
       if (counter < MAX_NR_MSG) {
         counter++;
@@ -459,11 +378,4 @@ void loop() {
       }
     }
   }
-
-  // Save power consumption data
-  /* unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= saveInterval) {
-    previousMillis = currentMillis;
-    writePower2SDcard();
-  } */
 }
