@@ -12,6 +12,13 @@ float estimateError = 1.0;
 float measurementError = 3.0;
 float estimatedRSSI = 0.0;
 
+// SMA filter variables
+const int smaWindowSize = 5; // Size of the SMA window
+float rssiBuffer[smaWindowSize];
+int rssiBufferIndex = 0;
+float rssiSum = 0.0;
+float smaRSSI;
+
 float packetRSSI;
 
 // Variables
@@ -61,6 +68,15 @@ float kalmanFilter(float measurement) {
   estimateError = (1 - kalmanGain) * estimateError;
 
   return estimatedRSSI;
+}
+
+float SMAfilter(float measurement) {
+  // Update the SMA buffer
+    rssiSum -= rssiBuffer[rssiBufferIndex];
+    rssiBuffer[rssiBufferIndex] = measurement;
+    rssiSum += rssiBuffer[rssiBufferIndex];
+    rssiBufferIndex = (rssiBufferIndex + 1) % smaWindowSize;
+    return rssiSum / smaWindowSize;
 }
 
 void updateVariable(String input) {
@@ -121,5 +137,9 @@ void loop() {
     // Apply Kalman Filter
     estimatedRSSI = kalmanFilter(packetRSSI);
     Serial.printf("Kalman RSSI: %.4f\n", estimatedRSSI);
+
+    // Apply SMA filter
+    smaRSSI = SMAfilter(packetRSSI);
+    Serial.printf("SMA RSSI: %.4f\n", smaRSSI);
   }
 }
