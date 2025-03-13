@@ -74,7 +74,7 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
    
 2. **Configure the sketch**:
    - Ensure your LoRa frequency matches your region (EU: ~868 MHz, AU/US: ~915 MHz, for more options see: https://www.thethingsnetwork.org/docs/lorawan/frequencies-by-country/).
-   - Adjust the Spreading Factor, Bandwidth, etc. to suit your test conditions.
+   - Adjust the Spreading Factor, Bandwidth, maximum nr of messages, etc. to suit your test conditions.
    - Ensure the pins are initialized correctly for the CAN transceiver and LoRa module(s).
    - Modify any addresses (if necessary) for reading CAN, in this setup Prohelions motor controller (0x4XX) and battery management system (0x6XX) are used.
    - Check any CAN bus speed settings.
@@ -97,6 +97,12 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
    ```
 
 7. **Data will be logged to a CSV file**, automatically named based on the timestamp.
+   
+9. **When MAX messages are reached**, write through serial to update parameters.
+    - Type "sf = {6, 7, 8, 9, 10, 11, 12}" (choose one), to update spreading factor.
+    - Type "sbw = {10400, 15600, 20800, 31250, 41700, 62500, 125000, 250000}" (choose one), to update signal bandwidth.
+    - Make sure BOTH the receiver and sender have updated their parameters.
+    - type "continue" at the sender to start transmitting again.
 
 ---
 
