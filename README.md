@@ -1,7 +1,6 @@
 # 📡 LoRa-CAN Data Logger for Solar-Powered Vehicles
 
-Welcome to the **LoRa-CAN Data Logger** project! This repository contains all the code and resources you need to **read and log CAN bus data over LoRa** using **ESP32** microcontrollers. It's part of the **Halmstad University Solar Team's** research on creating **low-power telemetry** in solar-powered vehicles.
-
+Welcome to the **LoRa-CAN Data Logger** project! This repository contains all the code and resources you need to **read and log CAN bus data over LoRa** using **ESP32** microcontrollers. It was developed as part of the **"Edge Computing and Internet of Things"** course at **Halmstad University**, while also contributing to the **Halmstad University Solar Team's** research on creating **low-power telemetry** for solar-powered vehicles.
 ---
 
 ## 📜 Table of Contents
