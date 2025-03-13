@@ -1,10 +1,10 @@
-# 📡 LoRa-CAN Data Logger for Solar-Powered Vehicles
+# LoRa-CAN Data Logger for Solar-Powered Vehicles
 
 Welcome to the **LoRa-CAN Data Logger** project! This repository contains all the code and resources you need to **read and log CAN bus data over LoRa** using **ESP32** microcontrollers. It was developed as part of the **"Edge Computing and Internet of Things"** course at **Halmstad University**, while also contributing to the **Halmstad University Solar Team's** research on creating **low-power telemetry** for solar-powered vehicles.
 
 ---
 
-## 📜 Table of Contents
+## Table of Contents
 1. [Overview](#-overview)
 2. [Repository Contents](#-repository-contents)
 3. [Features](#-features)
@@ -17,14 +17,14 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 
 ---
 
-## ✨ Overview
+## Overview
 - **Goal**: Efficiently transmit **CAN bus** data using **LoRa** for long-range, low-power monitoring in a solar-powered racing car.
 - **Key Focus**: Minimizing energy consumption while ensuring reliable data transmission.
 - **Context**: Part of the **Halmstad University Solar Team** project, aiming to enhance telemetry for the **World Solar Challenge**.
 
 ---
 
-## 📂 Repository Contents
+## Repository Contents
 1. **`LoRa_code.zip`**  
    - Contains firmware/scripts for **ESP32 + LoRa** communication.
    - Handles CAN message transmission and reception over **LoRa**.
@@ -40,7 +40,7 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 
 ---
 
-## 🚀 Features
+## Features
 - **CAN-to-LoRa** communication for real-time telemetry.
 - **Configurable** LoRa parameters (spreading factor, bandwidth, etc.).
 - **Energy-efficient** data collection suitable for **battery-powered** or **solar** setups.
@@ -49,7 +49,7 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 
 ---
 
-## 🛠 Installation & Setup
+## Installation & Setup
 1. **Clone or Download** the repository:
    ```sh
    git clone https://github.com/Lobbe/LoRa-CAN-DataLogger.git
@@ -69,7 +69,7 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 
 ---
 
-## 📊 Usage
+## Usage
 1. **Unzip or open `LoRa_code.zip`** in your preferred IDE (Arduino/PlatformIO).
    
 2. **Configure the sketch**:
@@ -106,7 +106,7 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 
 ---
 
-## 🔧 Hardware Requirements
+## Hardware Requirements
 - **ESP32 + LoRa Module** (e.g., Heltec/RFM69HW)
 - **CAN Transceiver** (e.g., SN65HVD230)
 - **Power Supply (3.3V)** for ESP32 system
@@ -114,19 +114,19 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 
 ---
 
-## 📊 Data Storage & Analysis
+## Data Storage & Analysis
 - The script logs data in CSV format for **further signal strength and packet loss analysis**.
 - Future work includes **dynamic LoRa parameter tuning** for real-time power optimization.
 
 ---
 
-## 👨‍💻 Contributors
+## Contributors
 - **William Olsson** (wilols20@student.hh.se)
 - **Ruben Croall** (rubcro20@student.hh.se)
 
 ---
 
-## 📄 License
+## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 This project was developed as part of a course at Halmstad University and is shared openly for educational purposes and public use.
