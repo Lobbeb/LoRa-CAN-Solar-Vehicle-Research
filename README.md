@@ -101,9 +101,9 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 ---
 
 ## 🔧 Hardware Requirements
-- **ESP32 + LoRa Module** (e.g., Heltec/Wemos LoRa32)
+- **ESP32 + LoRa Module** (e.g., Heltec/RFM69HW)
 - **CAN Transceiver** (e.g., SN65HVD230)
-- **Power Supply (12V)** for ESP32 system
+- **Power Supply (3.3V)** for ESP32 system
 - **Antenna (8.2cm for 868MHz or 7.8 cm for 915MHz)** for LoRa transmission
 
 ---
@@ -115,8 +115,8 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 ---
 
 ## 👨‍💻 Contributors
-- **William Olsson**
-- **Ruben Croall**
+- **William Olsson** (wilols20@student.hh.se)
+- **Ruben Croall** (rubcro20@student.hh.se)
 
 ---
 
