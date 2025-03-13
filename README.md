@@ -53,5 +53,5 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 
 1. **Clone or Download** the repository:
    ```sh
-   git clone https://github.com/YourUsername/LoRa-CAN-DataLogger.git
+   git clone https://github.com/Lobbe/LoRa-CAN-DataLogger.git
    cd LoRa-CAN-DataLogger
