@@ -55,3 +55,27 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
    ```sh
    git clone https://github.com/Lobbe/LoRa-CAN-DataLogger.git
    cd LoRa-CAN-DataLogger
+   
+2. **ESP32 Environment
+   Install Arduino IDE or PlatformIO.
+   Add support for ESP32 boards.
+
+
+3. **Python Environment (for read_data.py)
+   Install Python 3.
+   Install pyserial:
+      pip install pyserial
+
+
+## Usage
+ESP32 Firmware (LoRa_code.zip)
+   1. **Unzip or open LoRa_code.zip in your preferred IDE (Arduino/PlatformIO).
+      
+   2. **Configure the sketch:
+      -Ensure your LoRa frequency matches your region (EU: ~868 MHz, AU/US: ~915 MHz).
+      -Adjust Spreading Factor, Bandwidth, etc. to suit your test conditions.
+      -Check any CAN bus speed settings.
+   
+   3. **Upload the code to your Sender ESP32 and Receiver ESP32:
+      -Sender reads CAN data and transmits via LoRa.
+      -Receiver captures LoRa packets and forwards them to serial.
