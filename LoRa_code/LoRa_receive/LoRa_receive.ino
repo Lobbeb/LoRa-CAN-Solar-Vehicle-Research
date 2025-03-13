@@ -1,9 +1,3 @@
-/*********
-  Rui Santos & Sara Santos - Random Nerd Tutorials
-  Modified from the examples of the Arduino LoRa library
-  More resources: https://RandomNerdTutorials.com/esp32-lora-rfm95-transceiver-arduino-ide/
-*********/
-
 #include <SPI.h>
 #include <LoRa.h>
 
