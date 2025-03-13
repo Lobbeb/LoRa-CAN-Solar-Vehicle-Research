@@ -73,8 +73,10 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 1. **Unzip or open `LoRa_code.zip`** in your preferred IDE (Arduino/PlatformIO).
    
 2. **Configure the sketch**:
-   - Ensure your LoRa frequency matches your region (EU: ~868 MHz, AU/US: ~915 MHz).
-   - Adjust Spreading Factor, Bandwidth, etc. to suit your test conditions.
+   - Ensure your LoRa frequency matches your region (EU: ~868 MHz, AU/US: ~915 MHz, for more options see: https://www.thethingsnetwork.org/docs/lorawan/frequencies-by-country/).
+   - Adjust the Spreading Factor, Bandwidth, etc. to suit your test conditions.
+   - Ensure the pins are initialized correctly for the CAN transceiver and LoRa module(s).
+   - Modify any addresses (if necessary) for reading CAN, in this setup Prohelions motor controller (0x4XX) and battery management system (0x6XX) are used.
    - Check any CAN bus speed settings.
    
 3. **Upload the code** to your Sender ESP32 and Receiver ESP32:
@@ -102,7 +104,7 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 - **ESP32 + LoRa Module** (e.g., Heltec/Wemos LoRa32)
 - **CAN Transceiver** (e.g., SN65HVD230)
 - **Power Supply (12V)** for ESP32 system
-- **Antenna (16cm, 868MHz)** for LoRa transmission
+- **Antenna (8.2cm for 868MHz or 7.8 cm for 915MHz)** for LoRa transmission
 
 ---
 
