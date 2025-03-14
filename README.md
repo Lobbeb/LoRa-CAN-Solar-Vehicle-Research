@@ -25,17 +25,18 @@ Welcome to the **LoRa-CAN Data Logger** project! This repository contains all th
 ---
 
 ## Repository Contents
-1. **`LoRa_code.zip`**  
+1. **`LoRa_code`**
    - Contains firmware/scripts for **ESP32 + LoRa** communication.
    - Handles CAN message transmission and reception over **LoRa**.
-   
-2. **`read_data.py`**  
+3. **`MatLab_code`**
+   - Contains scripts for plotting RSSI, Tx interval and energy consumption
+5. **`read_data.py`**  
    - A **Python** script to read **LoRa-transmitted CAN data** from a serial port.
    - Extracts/logs:
      - **Message ID**, **Timestamp**, **LoRa data**, **RSSI**, **Kalman-filtered RSSI**, **SMA RSSI**
    - Outputs data in **CSV** format for analysis.
 
-3. **`README.md`**  
+6. **`README.md`**  
    - Comprehensive documentation of this project.
 
 ---
